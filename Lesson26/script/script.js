@@ -51,7 +51,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if (!menu.style.transform || menu.style.transform === 'translate(-100%)') {
                 menu.style.transform = `translate(0)`;
                 let flyInterval;
-                const flyAnimate = function () {
+                const flyAnimate = function() {
                     flyInterval = requestAnimationFrame(flyAnimate);
                     count += 20;
                     if (count < 1000 && document.documentElement.clientWidth > 1900) {
@@ -113,7 +113,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     opacityIn = 0;
                     popUp.style.display = 'block';
                     let opacityInterval;
-                    const opacityAnimate = function () {
+                    const opacityAnimate = function() {
                         opacityInterval = requestAnimationFrame(opacityAnimate);
                         opacityIn += 0.01;
                         if (opacityIn < 1.01) {
@@ -140,7 +140,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     if (document.documentElement.clientWidth >= 768) {
                         let opacityInterval;
                         opacityOut = 1;
-                        const opacityAnimate = function () {
+                        const opacityAnimate = function() {
                             opacityInterval = requestAnimationFrame(opacityAnimate);
                             opacityOut -= 0.01;
                             if (opacityOut > 0.01) {
@@ -172,7 +172,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         if (document.documentElement.clientWidth >= 768) {
                             let opacityInterval;
                             opacityOut = 1;
-                            const opacityAnimate = function () {
+                            const opacityAnimate = function() {
                                 opacityInterval = requestAnimationFrame(opacityAnimate);
                                 opacityOut -= 0.01;
                                 if (opacityOut > 0.01) {
@@ -555,29 +555,68 @@ window.addEventListener('DOMContentLoaded', () => {
         const formName = document.querySelectorAll('.form-name');
         const expandedFormName = document.querySelector('.top-form');
         const expandedFormMessage = document.querySelector('.mess');
-
         formPhone.forEach(item => {
-            item.addEventListener('input', () => {
-                if (item.value !== '') {
-                    if (!item.value[item.value.length - 1].match(/^[0-9+]/)) {
-                        item.value = item.value.substr(0, item.value.length - 1);
-                    }
-                }
-            });
+            item.setAttribute('autocomplete', 'off');
         });
         formName.forEach(item => {
-            item.addEventListener('input', () => {
-                if (item.value !== '') {
-                    if (!item.value[item.value.length - 1].match(/^[а-яА-Я ]/)) {
-                        item.value = item.value.substr(0, item.value.length - 1);
-                    }
-                }
-            });
+            item.setAttribute('autocomplete', 'off');
         });
+        expandedFormName.setAttribute('autocomplete', 'off');
+        expandedFormMessage.setAttribute('autocomplete', 'off');
+
+        const validatePhoneInput = dom => {
+            dom.forEach(item => {
+                item.addEventListener('input', () => {
+                    if (item.value !== '') {
+                        if (!item.value.match(/^(\+?[0-9]*)$/g)) {
+                            item.value = item.value.substr(0, item.value.length - 1);
+                        }
+                    }
+                });
+            });
+            dom.forEach(item => {
+                item.addEventListener('change', () => {
+                    if (item.value !== '') {
+                        if (!item.value.match(/^(\+?[0-9]*)$/g)) {
+                            item.value = '';
+                        }
+                    }
+                });
+            });
+        };
+        const validateStringInput = dom => {
+            dom.forEach(item => {
+                item.addEventListener('input', () => {
+                    if (item.value !== '') {
+                        if (!item.value[item.value.length - 1].match(/^[а-яА-Я ]/)) {
+                            item.value = item.value.substr(0, item.value.length - 1);
+                        }
+                    }
+                });
+            });
+            dom.forEach(item => {
+                item.addEventListener('change', () => {
+                    if (item.value !== '') {
+                        if (!item.value[item.value.length - 1].match(/^[а-яА-Я ]/)) {
+                            item.value = '';
+                        }
+                    }
+                });
+            });
+        };
+        validatePhoneInput(formPhone);
+        validateStringInput(formName);
         expandedFormName.addEventListener('input', () => {
             if (expandedFormName.value !== '') {
                 if (!expandedFormName.value[expandedFormName.value.length - 1].match(/^[а-яА-Я ]/)) {
                     expandedFormName.value = expandedFormName.value.substr(0, expandedFormName.value.length - 1);
+                }
+            }
+        });
+        expandedFormName.addEventListener('change', () => {
+            if (expandedFormName.value !== '') {
+                if (!expandedFormName.value[expandedFormName.value.length - 1].match(/^[а-яА-Я ]/)) {
+                    expandedFormName.value = '';
                 }
             }
         });
