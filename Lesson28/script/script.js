@@ -527,15 +527,11 @@ window.addEventListener('DOMContentLoaded', () => {
             }).catch(error => {
                 statusMessage.textContent = error;
                 event.target[event.target.length - 1].textContent = error;
-                console.log(error);
             });
         });
 
         popUpFormExpanded.addEventListener('submit', event => {
-            const formNameExpanded = document.getElementById('form2-name'),
-                formPhoneExpanded = document.getElementById('form2-phone'),
-                formEmailExpanded = document.getElementById('form2-email'),
-                formMessage = document.getElementById('form2-message');
+            const allPageInputs = document.querySelectorAll('input');
             event.preventDefault();
             statusMessage.textContent = loadMessage;
             const formData = new FormData(popUpFormExpanded);
@@ -544,17 +540,14 @@ window.addEventListener('DOMContentLoaded', () => {
                 body[key] = val;
             });
             postData(body).then(data => {
-                console.log(data);
                 statusMessage.textContent = data;
-                formNameExpanded.value = '';
-                formPhoneExpanded.value = '';
-                formEmailExpanded.value = '';
-                formMessage.value = '';
+                allPageInputs.forEach(item => {
+                    item.value = '';
+                });
                 alert(data);
             }).catch(error => {
                 statusMessage.textContent = error;
                 event.target[event.target.length - 1].textContent = error;
-                console.log(error);
             });
         });
     };
@@ -565,6 +558,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const formName = document.querySelectorAll('.form-name');
         const expandedFormName = document.querySelector('.top-form');
         const expandedFormMessage = document.querySelector('.mess');
+        const formBtns = document.querySelectorAll('.form-btn');
         formPhone.forEach(item => {
             item.setAttribute('autocomplete', 'off');
         });
@@ -579,7 +573,14 @@ window.addEventListener('DOMContentLoaded', () => {
                 item.addEventListener('input', () => {
                     if (item.value !== '') {
                         if (!item.value.match(/^(\+?[0-9]*)$/g)) {
-                            item.value = item.value.substr(0, item.value.length - 1);
+                            //item.value = item.value.substr(0, item.value.length - 1);
+                            formBtns.forEach(btns => {
+                                btns.setAttribute('disabled', true);
+                            });
+                        } else {
+                            formBtns.forEach(btns => {
+                                btns.removeAttribute('disabled', true);
+                            });
                         }
                     }
                 });
