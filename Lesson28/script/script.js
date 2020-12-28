@@ -51,7 +51,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if (!menu.style.transform || menu.style.transform === 'translate(-100%)') {
                 menu.style.transform = `translate(0)`;
                 let flyInterval;
-                const flyAnimate = function() {
+                const flyAnimate = function () {
                     flyInterval = requestAnimationFrame(flyAnimate);
                     count += 20;
                     if (count < 1000 && document.documentElement.clientWidth > 1900) {
@@ -113,7 +113,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     opacityIn = 0;
                     popUp.style.display = 'block';
                     let opacityInterval;
-                    const opacityAnimate = function() {
+                    const opacityAnimate = function () {
                         opacityInterval = requestAnimationFrame(opacityAnimate);
                         opacityIn += 0.01;
                         if (opacityIn < 1.01) {
@@ -140,7 +140,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     if (document.documentElement.clientWidth >= 768) {
                         let opacityInterval;
                         opacityOut = 1;
-                        const opacityAnimate = function() {
+                        const opacityAnimate = function () {
                             opacityInterval = requestAnimationFrame(opacityAnimate);
                             opacityOut -= 0.01;
                             if (opacityOut > 0.01) {
@@ -172,7 +172,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         if (document.documentElement.clientWidth >= 768) {
                             let opacityInterval;
                             opacityOut = 1;
-                            const opacityAnimate = function() {
+                            const opacityAnimate = function () {
                                 opacityInterval = requestAnimationFrame(opacityAnimate);
                                 opacityOut -= 0.01;
                                 if (opacityOut > 0.01) {
@@ -597,58 +597,35 @@ window.addEventListener('DOMContentLoaded', () => {
         };
         const validateStringInput = dom => {
             dom.forEach(item => {
-                item.addEventListener('input', event => {
-                    if (item.value !== '') {
-                        const rusWordRegExp = /^[а-яА-Я ]+/g;
-                        // if (!item.value[item.value.length - 1].match(/^[а-яА-Я ]/)) {
-                        //     item.value = item.value.substr(0, item.value.length - 1);
-                        // }
-                        if (!item.value.match(rusWordRegExp)) {
-                            item.value = item.value.replace(/[^АЯаяЁё]/g, "");
-                        }
-                    }
-                });
-            });
-            dom.forEach(item => {
-                item.addEventListener('change', () => {
-                    if (item.value !== '') {
-                        if (!item.value[item.value.length - 1].match(/^[а-яА-Я ]/)) {
-                            item.value = '';
-                        }
-                    }
+                item.addEventListener('input', () => {
+
+                    // if (!item.value[item.value.length - 1].match(/^[а-яА-Я ]/)) {
+                    //     item.value = item.value.substr(0, item.value.length - 1);
+                    // }
+
+                    item.value = item.value.replace(/[^А-Яа-яЁё]/g, "");
                 });
             });
         };
         validatePhoneInput(formPhone);
         validateStringInput(formName);
         expandedFormName.addEventListener('input', () => {
-            if (expandedFormName.value !== '') {
-                // if (!expandedFormName.value[expandedFormName.value.length - 1].match(/^[а-яА-Я ]/)) {
-                //     expandedFormName.value = expandedFormName.value.substr(0, expandedFormName.value.length - 1);
-                // }
-                const rusWordRegExp = /^[а-яА-Я ]+/g;
-                if (!expandedFormName.value.match(rusWordRegExp)) {
-                    expandedFormName.value = expandedFormName.value.replace(/[^АЯаяЁё]/g, "");
-                }
-            }
-        });
-        expandedFormName.addEventListener('change', () => {
-            if (expandedFormName.value !== '') {
-                if (!expandedFormName.value[expandedFormName.value.length - 1].match(/^[а-яА-Я ]/)) {
-                    expandedFormName.value = '';
-                }
-            }
+            // if (!expandedFormName.value[expandedFormName.value.length - 1].match(/^[а-яА-Я ]/)) {
+            //     expandedFormName.value = expandedFormName.value.substr(0, expandedFormName.value.length - 1);
+            // }
+            expandedFormName.value = expandedFormName.value.replace(/[^А-Яа-яЁё]/g, "");
+
+
         });
         expandedFormMessage.addEventListener('input', () => {
-            if (expandedFormMessage.value !== '') {
-                // if (!expandedFormMessage.value[expandedFormMessage.value.length - 1].match(/^[а-яА-Я ]/)) {
-                //     expandedFormMessage.value = expandedFormMessage.value.substr(0, expandedFormMessage.value.length - 1);
-                // }
-                const rusWordRegExp = /^[а-яА-Я ]+/g;
-                if (!expandedFormMessage.value.match(rusWordRegExp)) {
-                    expandedFormMessage.value = expandedFormMessage.value.replace(/[^АЯаяЁё]/g, "");
-                }
-            }
+
+            // if (!expandedFormMessage.value[expandedFormMessage.value.length - 1].match(/^[а-яА-Я ]/)) {
+            //     expandedFormMessage.value = expandedFormMessage.value.substr(0, expandedFormMessage.value.length - 1);
+            // }
+            expandedFormMessage.value = expandedFormMessage.value.replace(/[^А-Яа-яЁё]/g, "");
+
+
+
         });
     };
     formValidator();
