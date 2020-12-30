@@ -48,7 +48,7 @@ const formValidator = () => {
                 //     item.value = item.value.substr(0, item.value.length - 1);
                 // }
 
-                item.value = item.value.replace(/[^А-Яа-яЁё]/g, "");
+                item.value = item.value.replace(/[^А-Яа-яЁё ]/g, "");
             });
         });
     };
@@ -58,7 +58,7 @@ const formValidator = () => {
         // if (!expandedFormName.value[expandedFormName.value.length - 1].match(/^[а-яА-Я ]/)) {
         //     expandedFormName.value = expandedFormName.value.substr(0, expandedFormName.value.length - 1);
         // }
-        expandedFormName.value = expandedFormName.value.replace(/[^А-Яа-яЁё]/g, "");
+        expandedFormName.value = expandedFormName.value.replace(/[^А-Яа-яЁё ]/g, "");
 
 
     });
@@ -66,7 +66,7 @@ const formValidator = () => {
         // if (!expandedFormMessage.value[expandedFormMessage.value.length - 1].match(/^[а-яА-Я ]/)) {
         //     expandedFormMessage.value = expandedFormMessage.value.substr(0, expandedFormMessage.value.length - 1);
         // }
-        expandedFormMessage.value = expandedFormMessage.value.replace(/[^А-Яа-яЁё]/g, "");
+        expandedFormMessage.value = expandedFormMessage.value.replace(/[^А-Яа-яЁё.,!? ]/g, "");
     });
 };
 
